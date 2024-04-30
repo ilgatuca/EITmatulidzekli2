@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Data.SQLite;
-using System.Threading.Tasks;
 using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace HairCareRecommendation
 {
@@ -15,13 +16,30 @@ namespace HairCareRecommendation
             // Izveidojam savienojuma ceļu, izmantojot relatīvo ceļu, lai dati būtu vienmēr pieejami aplikācijai
             string connectionString = "Data Source=mansjauns.db;Version=3;";
             connection = new SQLiteConnection(connectionString);
+
+            httpClient = new HttpClient();
         }
         private SQLiteConnection connection;
 
+        static SQLiteConnection CreateConeection()
+        {
+            SQLiteConnection mansjauns;
+            mansjauns = new SQLiteConnection("Data Source=mansjauns.db; Version = 3; New = true; Compress = True;");
+            try
+            {
+                mansjauns.Open();
+
+            }
+            catch
+            {
+
+            }
+            return mansjauns;
+        }
+        //dzēst no datubāzes
         
 
-
-            private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string recommendations = "";
 
@@ -153,6 +171,174 @@ namespace HairCareRecommendation
             richTextBox1.Text = recommendations;
         }
 
-        
+        private void dzest_Click(object sender, EventArgs e)
+        {
+            if (int.TryParse(dzestid.Text, out int id))
+            {
+                {
+                    SQLiteConnection sqlite_conn;
+                    sqlite_conn = CreateConeection();
+
+                    SQLiteCommand sqlite_cmd;
+                    sqlite_cmd = sqlite_conn.CreateCommand();
+                    sqlite_cmd.CommandText = "DELETE FROM mansjauns WHERE id=" + dzestid.Text + ";";
+                    sqlite_cmd.ExecuteNonQuery();
+                    dzestid.Clear();
+
+                    MessageBox.Show("Izdzēsts no datubāzes");
+
+                }
+            }
+            else
+            { // izvada ziņojumu ja ir nepareiza vertība ievadīta
+                MessageBox.Show("Ievadiet id ko vēlaties dzēst");
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            {
+                 if (cbsieviete.Text != "")
+                  {
+                    using (SQLiteConnection sqlite_conn = CreateConnection())
+                  {
+                    sqlite_conn.Open();
+
+                    using (SQLiteCommand sqlite_cmd = sqlite_conn.CreateCommand())
+                    {
+                        // Pievieno dataubazei notiektas kolonas
+                        sqlite_cmd.CommandText = "INSERT INTO mansjauns(dzimums, vecums, matu_krasa, matu_vesture, struktura, matu_sausums, esanas_paradumi, cik_daudz_udeni_tu_dzer) " +
+                                                 "VALUES(@dzimums, @vecums, @matu_krasa, @matu_vesture, @struktura, @matu_sausums, @esanas_paradumi, @cik_daudz_udeni_tu_dzer);";
+
+                        // pievieno tb vertibas datubazes kolonam
+                        if (cbsieviete.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@dzimums", cbsieviete.Text);
+                        }
+                        if (cbvirietis.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@dzimums", cbvirietis.Text);
+                        }
+                        if (cbvecums1.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@vecums", cbvecums1.Text);
+                        }
+                        if (cbvecums2.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@vecums", cbvecums2.Text);
+                        }
+                        if (cbgaisi.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_krasa", cbgaisi.Text);
+                        }
+                        if (cbtumsi.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_krasa", cbtumsi.Text);
+                        }
+                        if (cbnekrasoti.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_krasa", cbnekrasoti.Text);
+                        }
+                        if (cbkrasoti.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_krasa", cbkrasoti.Text);
+                        }
+                        if (cbbalinati.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_krasa", cbbalinati.Text);
+                        }
+                        if (cbtrausli.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@struktura", cbtrausli.Text);
+                        }
+                        if (cbbojati.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@struktura", cbbojati.Text);
+                        }
+                        if (cbplani.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@struktura", cbplani.Text);
+                        }
+                        if (cbtaukaini.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@struktura", cbtaukaini.Text);
+                        }
+                        if (cb13.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_sausums", cb13.Text);
+                        }
+                        if (cb47.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_sausums", cb47.Text);
+                        }
+                        if (cb810.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@matu_sausums", cb810.Text);
+                        }
+                        if (cbvisedajs.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@esanas_paradumi", cbvisedajs.Text);
+                        }
+                        if (cbvegetarietis.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@esanas_paradumi", cbvegetarietis.Text);
+                        }
+                        if (cbvegans.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@esanas_paradumi", cbvegans.Text);
+                        }
+                        if (cb01.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@cik_daudz_udeni_tu_dzer", cb01.Text);
+                        }
+                        if (cb12.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@cik_daudz_udeni_tu_dzer", cb12.Text);
+                        }
+                        if (cb23.Checked == true)
+                        {
+                            sqlite_cmd.Parameters.AddWithValue("@cik_daudz_udeni_tu_dzer", cb23.Text);
+                        }
+                        // šaujam
+                        sqlite_cmd.ExecuteNonQuery();
+                        MessageBox.Show("Saglabāts datubāzē");
+
+                    }
+                }
+               }
+                else
+                {
+                    MessageBox.Show("Lūdzu ievadiet nosaukumu");
+                }
+
+            }
+        }
+
+        private SQLiteConnection CreateConnection()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async void api_Click(object sender, EventArgs e)
+        {
+            // Izveidojam URL, lai saņemtu datus no API
+            string apiUrl = "https://world.openfoodfacts.org/api/v0/product/737628064502.json";
+
+            // Iegūstam datus no API, izmantojot HttpClient
+            HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                string data = await response.Content.ReadAsStringAsync();
+                // Šeit varat veikt datu apstrādi un saglabāt tos datubāzē
+                // Piemēram, varat deserializēt JSON un izmantot saņemtos datus
+
+                // Pēc datu apstrādes saglabājam datus datubāzē
+                await SaveDataToDatabase(data);
+            }
+            else
+            {
+                MessageBox.Show("Neizdevās iegūt datus no API");
+            }
+        }
     }
 }

@@ -62,6 +62,10 @@ namespace HairCareRecommendation
             this.cb23 = new System.Windows.Forms.CheckBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.dzest = new System.Windows.Forms.Button();
+            this.dzestid = new System.Windows.Forms.TextBox();
+            this.db = new System.Windows.Forms.Button();
+            this.api = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -335,7 +339,6 @@ namespace HairCareRecommendation
             this.cb01.TabIndex = 28;
             this.cb01.Text = "0-1l";
             this.cb01.UseVisualStyleBackColor = true;
-            
             // 
             // cb12
             // 
@@ -375,11 +378,52 @@ namespace HairCareRecommendation
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // dzest
+            // 
+            this.dzest.Location = new System.Drawing.Point(957, 55);
+            this.dzest.Name = "dzest";
+            this.dzest.Size = new System.Drawing.Size(75, 23);
+            this.dzest.TabIndex = 33;
+            this.dzest.Text = "button2";
+            this.dzest.UseVisualStyleBackColor = true;
+            this.dzest.Click += new System.EventHandler(this.dzest_Click);
+            // 
+            // dzestid
+            // 
+            this.dzestid.Location = new System.Drawing.Point(851, 58);
+            this.dzestid.Name = "dzestid";
+            this.dzestid.Size = new System.Drawing.Size(100, 20);
+            this.dzestid.TabIndex = 34;
+            // 
+            // db
+            // 
+            this.db.Location = new System.Drawing.Point(617, 166);
+            this.db.Name = "db";
+            this.db.Size = new System.Drawing.Size(129, 42);
+            this.db.TabIndex = 35;
+            this.db.Text = "button2";
+            this.db.UseVisualStyleBackColor = true;
+            this.db.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // api
+            // 
+            this.api.Location = new System.Drawing.Point(849, 168);
+            this.api.Name = "api";
+            this.api.Size = new System.Drawing.Size(209, 80);
+            this.api.TabIndex = 36;
+            this.api.Text = "button2";
+            this.api.UseVisualStyleBackColor = true;
+            this.api.Click += new System.EventHandler(this.api_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1296, 674);
+            this.Controls.Add(this.api);
+            this.Controls.Add(this.db);
+            this.Controls.Add(this.dzestid);
+            this.Controls.Add(this.dzest);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.cb23);
@@ -455,6 +499,10 @@ namespace HairCareRecommendation
         private System.Windows.Forms.CheckBox cb23;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button dzest;
+        private System.Windows.Forms.TextBox dzestid;
+        private System.Windows.Forms.Button db;
+        private System.Windows.Forms.Button api;
     }
 }
 
